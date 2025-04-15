@@ -1,0 +1,10 @@
+<h1>Create a New Article</h1>
+
+
+
+<%= render "form", form_path: articles_path, form_method: :post, submit_label: "Create Article", action_word: "saved" %>
+
+
+<p>
+    <%= link_to "All Article", articles_path %>
+</p>

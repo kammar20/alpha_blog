@@ -1,0 +1,26 @@
+
+<% if @article.errors.any? %>
+  <h2>Error that prevented your article from being <%= action_word %></h2>
+  <ul>
+    <% @article.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<%= form_tag form_path, method: form_method do %>
+  <div>
+    <%= label_tag :title, "Title" %><br>
+    <%= text_field_tag :title, @article&.title || params[:title] %>
+  </div>
+
+  <div>
+    <%= label_tag :description, "Description" %><br>
+    <%= text_area_tag :description, @article&.description || params[:description] %>
+  </div>
+
+  <div>
+    <%= submit_tag submit_label %>
+  </div>
+<% end %>
