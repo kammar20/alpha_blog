@@ -1,9 +1,3 @@
-<h1>Update Article</h1>
-
-
-<%= render "form", form_path: article_path(@article), form_method: :patch, submit_label: "Update Article", action_word: "updated" %>
-
-
-<p>
-    <%= link_to "Cancle and Return to All Article", articles_path %>
-</p>
+  <h1 class="text-center mt-4">Update Article</h1>
+    <%= render "form", form_path: article_path(@article), form_method: :patch,
+    submit_label: "Update Article", action_word: "updated" %>
