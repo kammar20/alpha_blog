@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
 
+  def index
+    @users=User.paginate(page: params[:page], per_page: 3)
+  end
+
   def new
     @user = User.new
   end
@@ -21,9 +25,9 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if @user = User.update(username: params[:username], email: params[:email], password: params[:password])
+    if @user.update(username: params[:username], email: params[:email], password: params[:password])
       flash[:notice] = "Your account information is successfully updated"
-      redirect_to articles_path
+      redirect_to @user
 
     else
       render "edit"
@@ -32,7 +36,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @articles = @user.articles
+    @articles = @user.articles.paginate(page: params[:page], per_page: 3)
   end
 
 
