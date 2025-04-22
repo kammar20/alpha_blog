@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <% flash.each do |name, msg| %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         
@@ -8,4 +8,22 @@
         </button>
     </div>
     <%end%>
-</div>
+</div> -->
+
+<div class="container mt-3">
+    <% flash.each do |name, msg| %>
+      <% alert_class = case name.to_sym
+        when :notice then "alert-success"
+        when :alert  then "alert-danger"
+        else "alert-info"
+      end %>
+  
+      <div class="alert <%= alert_class %> alert-dismissible fade show" role="alert">
+        <%= msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+  </div>
+  

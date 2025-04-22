@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
     
 before_action :set_article, only: [:show, :edit, :update, :destroy]
+before_action :required_user, except: [:show, :index]
+before_action :require_same_user, only: [:edit, :update, :destroy]
 
     def show 
     end
@@ -15,7 +17,7 @@ before_action :set_article, only: [:show, :edit, :update, :destroy]
 
     def create
         @article = Article.new(title: params[:title], description: params[:description])
-            @article.user = User.first
+            @article.user = current_user
             if @article.save
                 flash[:notice] = "Article was created successfully"
                 redirect_to @article
@@ -50,6 +52,13 @@ before_action :set_article, only: [:show, :edit, :update, :destroy]
 
     def set_article
         @article = Article.find(params[:id])
+    end
+
+    def require_same_user
+        if current_user != @article.user && !current_user.admin?
+            flash[:alert] = "You can only delete or edit your own article"
+            redirect_to article_path(@article)
+        end
     end
       
 end
